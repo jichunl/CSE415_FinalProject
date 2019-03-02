@@ -94,8 +94,8 @@ code and defining the personality of the agent.'''
 reference1 = '''Wikipedia article on Baroque Chess;
     URL: https://en.wikipedia.org/wiki/Baroque_chess (accessed Feb. 22, 2018)'''
 
-reference2 = '''"What\'s Wrong with Ultima," by Robert Abbott,
-    available online at: http://www.logicmazes.com/games/wgr.html'''
+reference2 = '''"Automatic Determination of Piano Fingering Based on Hidden Markov Models;
+    http://hil.t.u-tokyo.ac.jp/research/introduction/PianoFingering/english.html'''
 
 our_submission = Who_and_what([maggie, john], OPTION, title, approach, workload_distribution, [reference1, reference2])
 
