@@ -85,14 +85,21 @@ a personality for the agent, and then optimize using alpha-beta
 pruning, Zobrist hashing, and comparison of alternative static
 evaluation functions.'''
 
-workload_distribution = '''Maggie will have primary responsibility for the 
-static evaluation function, John will have primary responsibility for
-the optimizations of alpha-beta pruning and Zobrist hashing, and both
-partners expect to be closely involved in writing the move-generation
-code and defining the personality of the agent.'''
+workload_distribution = '''For the project of Hidden Markov Model Application, 
+    there are total two algorithms needed to be implemented. One is the Forward
+    Algorithm, which takes a sequence of observations and uses that information
+    to repeatedly estimate the a-posteriori probability distribution over the 
+    set of possible states. The other is Viterbi algorithm, which take a 
+    sequence of observations and use it to determine the most likely state 
+    sequence. Each one of us will focusing on implementation of one algorithm.
+    The two applications of Hidden Markov Model we would like to explore are 
+    gambling and location tracking. Both of us would involve in application of
+    HMM.
+    '''
 
-reference1 = '''Wikipedia article on Baroque Chess;
-    URL: https://en.wikipedia.org/wiki/Baroque_chess (accessed Feb. 22, 2018)'''
+reference1 = '''Predicting the Viterbi Score Distribution for a Hidden Markov 
+    Model and Application to Speech Recognition;
+    URL: https://ieeexplore-ieee-org.offcampus.lib.washington.edu/document/4041064'''
 
 reference2 = '''"Automatic Determination of Piano Fingering Based on Hidden Markov Models;
     http://hil.t.u-tokyo.ac.jp/research/introduction/PianoFingering/english.html'''
