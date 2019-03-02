@@ -70,9 +70,9 @@ Team:
 
 # Change the following to represent your own information:
 
-maggie = Partner("Li", "Jichun", "jichunli")
-john = Partner("Li", "Xuedeliang", "xl74")
-team = [maggie, john]
+peter = Partner("Li", "Jichun", "jichunli")
+jason = Partner("Li", "Xuedeliang", "xl74")
+team = [peter, jason]
 
 OPTION = '3'
 # Legal options are 1, 2, and 3.
@@ -103,7 +103,7 @@ reference1 = '''Predicting the Viterbi Score Distribution for a Hidden Markov
 reference2 = '''"Automatic Determination of Piano Fingering Based on Hidden Markov Models;
     http://hil.t.u-tokyo.ac.jp/research/introduction/PianoFingering/english.html'''
 
-our_submission = Who_and_what([maggie, john], OPTION, title, approach, workload_distribution, [reference1, reference2])
+our_submission = Who_and_what([peter, jason], OPTION, title, approach, workload_distribution, [reference1, reference2])
 
 # You can run this file from the command line by typing:
 # python3 who_and_what.py
