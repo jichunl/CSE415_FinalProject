@@ -79,11 +79,10 @@ OPTION = '3'
 
 title = "Hidden Markov Model Applications"
 
-approach = '''Our approach will be to first understand the rules,
-then code our move generator, develop a static evaluation function,
-a personality for the agent, and then optimize using alpha-beta
-pruning, Zobrist hashing, and comparison of alternative static
-evaluation functions.'''
+approach = '''We plan to search for data sets which are related to location tracking and 
+to generate our own data set of gambling cheating. The first case will be an 
+application of Forward Algorithm and the second be the Viterbi Algorithm. 
+Based on the data sets, the algorithms could be implemented for demonstration. '''
 
 workload_distribution = '''For the project of Hidden Markov Model Application, 
     there are total two algorithms needed to be implemented. One is the Forward
