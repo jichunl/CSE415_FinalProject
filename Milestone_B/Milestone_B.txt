@@ -1,3 +1,7 @@
+#   Jichun Li, Xuedeliang Li
+#   jichunli, xlstates4
+#   CSE 415 Milestone B
+
 (a) The project we chose is Hidden Markov Model Applications. We will apply
 	Hidden Markov Model on two applications: finding dishonesty in casino, and
 	weather forecasting. The techniques that we used in this project are two 
