@@ -1,14 +1,8 @@
 #   Jichun Li, Xuedeliang Li
-#   jichunli, xlstates4
+#   jichunli, xl74
 #   CSE 415 Milestone B
 
 import RandomSequenceGenerator as g
-
-
-def sample_input():
-    dice_number_seq = g.generate()
-    print(dice_number_seq[0])
-    print(dice_number_seq[1])
 
 
 #   Take in a number of sequence, generate the
@@ -76,7 +70,7 @@ if __name__ == '__main__':
 
     #   sampleInput = g.generate(n = 100, initial = test_initial_selection, trans = test_trans_matrix, num_prob = test_number_matrix)
     #   OPT = viterbi_dp(sampleInput[1], test_trans_matrix, test_number_matrix, test_initial_selection)
-    sampleInput = g.generate(n=100)
+    sampleInput = g.generate(n=100, seed=234567)
     OPT = viterbi_dp(sampleInput[1], g.TRANSITION_MATRIX, g.NUMBER_MATRIX, g.INITIAL_SELECTION)
     result = viterbi_tb(OPT)
     #   print(result[1:])
