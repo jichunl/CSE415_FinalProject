@@ -34,17 +34,3 @@ def hmm_forward(sequence, transmission_matrix, emission_matrix, initial_selectio
         output_matrix.append(ti)
 
     return output_matrix, sum(output_matrix[N - 1])
-
-
-if __name__ == "__main__":
-    initial_selection = [0.2, 0.4, 0.4]
-    transition_matrix = [[0.5, 0.2, 0.3],
-                         [0.3, 0.5, 0.2],
-                         [0.2, 0.3, 0.5]]
-    emission_matrix = [[0.5, 0.5],
-                       [0.4, 0.6],
-                       [0.7, 0.3]]
-
-    result = hmm_forward([0, 1, 0], transition_matrix, emission_matrix, initial_selection)
-    print(result[0])
-    print(result[1])

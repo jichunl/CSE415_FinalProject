@@ -28,6 +28,7 @@ NUMBER_MATRIX = [[1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6],
 #   v[i] = Probability of selecting dice i at the beginning.
 INITIAL_SELECTION = [1 / 7, 1 / 7, 1 / 7, 1 / 7, 1 / 7, 1 / 7, 1 / 7]
 
+
 def generate(n = 100, seed = 123456, initial = None, trans = None, num_prob = None):
     global TRANSITION_MATRIX, NUMBER_MATRIX, INITIAL_SELECTION
     random.seed(seed)
@@ -35,7 +36,7 @@ def generate(n = 100, seed = 123456, initial = None, trans = None, num_prob = No
     init_selection_cum = None
     number_prob_cum = None
 
-    if None == initial:
+    if initial is None:
         init_selection_cum = numpy.cumsum(INITIAL_SELECTION)
     else:
         init_selection_cum = numpy.cumsum(initial)
@@ -45,7 +46,7 @@ def generate(n = 100, seed = 123456, initial = None, trans = None, num_prob = No
     else:
         trans_m_cum = numpy.cumsum(trans, 1)
 
-    if None == num_prob:
+    if num_prob is None:
         number_prob_cum = numpy.cumsum(NUMBER_MATRIX, 1)
     else:
         number_prob_cum = numpy.cumsum(num_prob, 1)
@@ -53,79 +54,46 @@ def generate(n = 100, seed = 123456, initial = None, trans = None, num_prob = No
     result = []
     dices = []
 
-    #   First toss using INITIAL_SELECTION
+    #   1. First toss using INITIAL_SELECTION
     first_rand = random.random()
     dice = 0
 
-    if first_rand < init_selection_cum[0]:
-        dice = 0
-    elif first_rand < init_selection_cum[1]:
-        dice = 1
-    elif first_rand < init_selection_cum[2]:
-        dice = 2
-    elif first_rand < init_selection_cum[3]:
-        dice = 3
-    elif first_rand < init_selection_cum[4]:
-        dice = 4
-    elif first_rand < init_selection_cum[5]:
-        dice = 5
-    else:
-        dice = 6
+    for i in range(len(init_selection_cum)):
+        if first_rand < init_selection_cum[i]:
+            dice = i
+            break
 
     dice_number = 0
     dice_num_rand = random.random()
 
-    if dice_num_rand < number_prob_cum[dice][0]:
-        dice_number = 1
-    elif dice_num_rand < number_prob_cum[dice][1]:
-        dice_number = 2
-    elif dice_num_rand < number_prob_cum[dice][2]:
-        dice_number = 3
-    elif dice_num_rand < number_prob_cum[dice][3]:
-        dice_number = 4
-    elif dice_num_rand < number_prob_cum[dice][4]:
-        dice_number = 5
-    else:
-        dice_number = 6
+    #   2. Decide the number of the first toss
+    for i in range(len(number_prob_cum[dice])):
+        if dice_num_rand < number_prob_cum[dice][i]:
+            dice_number = i + 1
+            break
 
     result.append(dice_number)
     dices.append(dice)
     last_dice = dice
 
+    #   3. Decide other toss based on previous one toss
     for i in range(1, n):
         dice_rand = random.random()
         this_dice = 0
         this_dice_number = 0
 
-        if dice_rand < trans_m_cum[last_dice][0]:
-            this_dice = 0
-        elif dice_rand < trans_m_cum[last_dice][1]:
-            this_dice = 1
-        elif dice_rand < trans_m_cum[last_dice][2]:
-            this_dice = 2
-        elif dice_rand < trans_m_cum[last_dice][3]:
-            this_dice = 3
-        elif dice_rand < trans_m_cum[last_dice][4]:
-            this_dice = 4
-        elif dice_rand < trans_m_cum[last_dice][5]:
-            this_dice = 5
-        else:
-            this_dice = 6
+        for j in range(len(trans_m_cum[last_dice])):
+            if dice_rand < trans_m_cum[last_dice][j]:
+                this_dice = j
+                break
 
         dice_num_rand = random.random()
 
-        if dice_num_rand < number_prob_cum[this_dice][0]:
-            this_dice_number = 1
-        elif dice_num_rand < number_prob_cum[this_dice][1]:
-            this_dice_number = 2
-        elif dice_num_rand < number_prob_cum[this_dice][2]:
-            this_dice_number = 3
-        elif dice_num_rand < number_prob_cum[this_dice][3]:
-            this_dice_number = 4
-        elif dice_num_rand < number_prob_cum[this_dice][4]:
-            this_dice_number = 5
-        else:
-            this_dice_number = 6
+        #   4. Decide current number given the chosen dice
+        for k in range(len(number_prob_cum[this_dice])):
+            if dice_num_rand < number_prob_cum[this_dice][k]:
+                this_dice_number = k + 1
+                break
 
         result.append(this_dice_number)
         dices.append(this_dice)

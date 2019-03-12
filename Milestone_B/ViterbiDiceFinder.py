@@ -2,7 +2,7 @@
 #   jichunli, xl74
 #   CSE 415 Milestone B
 
-import RandomSequenceGenerator as g
+import DefaultSequenceGenerator as g
 
 
 #   Take in a number of sequence, generate the
@@ -26,9 +26,14 @@ def viterbi_dp(num_sequence, trans_matrix, number_matrix, initial_selection):
     for i in range(2, obs + 1):
         current_number = num_sequence[i - 1]
 
+        #   Calculate the current max possible dice given the max possible dice previously
         for current_state in range(states):
             max_prob = -1
             max_last = -1
+
+            #   Calculate the max probability for the current dice
+            #   given the transmission matrix, the probability of getting current number given current dice,
+            #   and the probability of getting last dice.
             for last_state in range(states):
                 delta = trans_matrix[last_state][current_state] * number_matrix[current_state][current_number - 1] * OPT[last_state][i - 1][0]
                 #   Break tie by always record the first
@@ -36,6 +41,7 @@ def viterbi_dp(num_sequence, trans_matrix, number_matrix, initial_selection):
                     max_prob = delta
                     max_last = last_state
 
+            #   Store the probability of getting current dice and the best last dice into the OPT table for back trace.
             OPT[current_state][i] = (max_prob, max_last)
 
     return OPT
@@ -61,18 +67,27 @@ def viterbi_tb(opt):
     return result
 
 
-if __name__ == '__main__':
-    test_trans_matrix = [[0.9, 0.1],
-                         [0.2, 0.8]]
-    test_number_matrix = [[1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6],
-                          [0.04, 0.04, 0.04, 0.04, 0.04, 0.8]]
-    test_initial_selection = [1 / 2, 1 / 2]
+def demo(n=-1, seed=234567, number_sequence=None, dice_sequence=None,
+         transition_matrix=None, emission_matrix=None, initial_selection=None):
+    if n == -1:
+        #   Use default 7 dices example
+        sampleInput = g.generate(n=50, seed=234567)
+        OPT = viterbi_dp(sampleInput[1], g.TRANSITION_MATRIX, g.NUMBER_MATRIX, g.INITIAL_SELECTION)
+        result = viterbi_tb(OPT)
 
-    #   sampleInput = g.generate(n = 100, initial = test_initial_selection, trans = test_trans_matrix, num_prob = test_number_matrix)
-    #   OPT = viterbi_dp(sampleInput[1], test_trans_matrix, test_number_matrix, test_initial_selection)
-    sampleInput = g.generate(n=100, seed=234567)
-    OPT = viterbi_dp(sampleInput[1], g.TRANSITION_MATRIX, g.NUMBER_MATRIX, g.INITIAL_SELECTION)
-    result = viterbi_tb(OPT)
-    #   print(result[1:])
-    #   print(sampleInput[0])
-    print(sum([result[i] != sampleInput[0][i - 1] for i in range (1, 101)]))
+        #   Return generated dice sequence
+        return sampleInput, result[1:], OPT
+
+    else:
+        #   Use custom settings:
+        if number_sequence is None and dice_sequence is None:
+            #   Generate sample sequence
+            sampleInput = g.generate(n, seed, initial_selection, transition_matrix, emission_matrix)
+            OPT = viterbi_dp(sampleInput[1], transition_matrix, emission_matrix, initial_selection)
+            result = viterbi_tb(OPT)
+            return sampleInput, result[1:], OPT
+        else:
+            #   Calculate from given sequence
+            OPT = viterbi_dp(number_sequence, transition_matrix, emission_matrix, initial_selection)
+            result = viterbi_tb(OPT)
+            return [dice_sequence, number_sequence], result[1:], OPT
