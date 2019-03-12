@@ -40,4 +40,98 @@
 	
 
 4. Technique used
+	There are three major type of questions in Hidden Markov Model: Evaluation
+	problem, which asks the probability that a particular sequence of symbols is
+	produced by a particular model; Decoding problem, which asks that given a
+	sequence of observations, and a model, what is the most likely sequence of
+	states that produced the sequence; and Training problem: given a model
+	structure and a set of sequences, find the model that best fits the data. In
+	this project, what we did is implementing two algorithms of Hidden Markov
+	Model: Viterbi Algorithm and Forward Algorithm. Forward Algorithm is mostly
+	used in solving evaluation problem and Viterbi Algorithm is mostly used in
+	decoding problem. For a Hidden Markov Model, with given transition
+	probability, emission probability, initial selection, Viterbi algorithm will
+	give the most probable sequence of hidden states, or the Viterbi path that 
+	results in a sequence of observed events. The pseudocode of Viterbi
+	Algorithm is as below:
+	// start of pseudocode
+	 function VITERBI
+  
+    
+    {\displaystyle (O,S,\Pi ,Y,A,B):X}
+  
+{\displaystyle (O,S,\Pi ,Y,A,B):X}
+     for each state 
+  
+    
+    {\displaystyle i\in \{1,2,\ldots ,K\}}
+  
+{\displaystyle i\in \{1,2,\ldots ,K\}} do
+         T1[i,1] ← πi·Biy1
+         T2[i,1] ← 0
+     end for
+     for each observation 
+  
+    
+    {\displaystyle i=2,3,\ldots ,T}
+  
+{\displaystyle i=2,3,\ldots ,T} do
+         for each state 
+  
+    
+    {\displaystyle j\in \{1,2,\ldots ,K\}}
+  
+{\displaystyle j\in \{1,2,\ldots ,K\}} do
+             {\displaystyle T_{1}[j,i]\gets \max _{k}{(T_{1}[k,i-1]\cdot
+A_{kj}\cdot B_{jy_{i}})}} {\displaystyle T_{1}[j,i]\gets \max
+_{k}{(T_{1}[k,i-1]\cdot A_{kj}\cdot B_{jy_{i}})}}
+             {\displaystyle T_{2}[j,i]\gets \arg \max _{k}{(T_{1}[k,i-1]\cdot
+A_{kj}\cdot B_{jy_{i}})}} T_{2}[j,i]\gets \arg \max _{k}{(T_{1}[k,i-1]\cdot
+A_{kj}\cdot B_{jy_{i}})}
+         end for
+     end for
+     {\displaystyle z_{T}\gets \arg \max _{k}{(T_{1}[k,T])}} z_{T}\gets \arg
+\max _{k}{(T_{1}[k,T])}
+     xT ← szT
+     for i ← T,T-1,...,2 do
+         zi-1 ← T2[zi,i]
+         xi-1 ← szi-1
+     end for
+     return X
+ end function
+	// end of pseudocode
+	The Forward Algorithm will give the probability of each hidden state for a
+	given Hidden Markov Model. The code of Forward Algorithm is as below
+	// start of pseudocode
+	init {\displaystyle t=0} t=0, transition probabilities {\displaystyle
+p(x_{t}|x_{t-1})} p(x_{t}|x_{{t-1}}), emission probabilities, {\displaystyle
+p(y_{j}|x_{i})} {\displaystyle p(y_{j}|x_{i})}, observed sequence,
+{\displaystyle y(1:t)} {\displaystyle y(1:t)}
+
+       for 
+  
+    
+    {\displaystyle t=t+1}
+  
+t=t+1
+           
+  
+    
+    {\displaystyle \alpha _{t}(x_{t})=p(y_{t}|x_{t})\sum
+_{x_{t-1}}p(x_{t}|x_{t-1})\alpha _{t-1}(x_{t-1})}
+  
+\alpha _{t}(x_{t})=p(y_{t}|x_{t})\sum _{{x_{{t-1}}}}p(x_{t}|x_{{t-1}})\alpha
+_{{t-1}}(x_{{t-1}}).
+       until t=T
+return {\displaystyle p(y(1:t))=\alpha _{T}} {\displaystyle p(y(1:t))=\alpha
+_{T}}
+	// end of pseudocode
+	Due to the nature of the Forward Algorithm and Viterbi Algorithm, the value
+	calculated previously are used in later calculation repeatedly, so the
+	actual implementation of algorithm utilized dynamic programming technique. 
 	
+
+
+
+
+
