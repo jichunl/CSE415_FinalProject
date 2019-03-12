@@ -1,0 +1,43 @@
+1. Title of project 
+	Hidden Markov Model Applications
+
+2. Names and roles of each teammates: 
+	Xuedeliang Li 
+	Jichun Li
+
+3. What program suppose to do: 
+	The program consists of two parts: implementation of Forward Algorithm and 
+	Viterbi Algorithm of Hidden Markov Model. The Hidden Markov Model is a 
+	statistical Markov model where the system is assumed to be a Markov prcess
+	with hidden states. For a given Hidden Markov Model, there are three given
+	parameters determine the model: transmission probablity, emission 
+	probability and the initial states. For a given sequence, the Forward 
+	Algorithm is used to calculate the probablity of a sequence that would be 
+	generated from the Hidden Markov Model. The Viterbi Algorithm would produce
+	the hidden state sequence that is most likely corresponds to the given 
+	observations. 
+	We applied two algorithms on two real-life exmaples. Viterbi algorithm is 
+	applied on the	finding dishonesty in casino: suppose a gambler owns a set 
+	of loaded dice, and loaded dice have a greater opportunity of getting a 
+	specific value after they are tossed. During the game, the gambler may or 
+	may not use a loaded dice, and therefore we do not know when the gambler is
+	cheating. In the case we studied, we assumed that the gambler owns seven 
+	dice, one normal dice, and six loaded dice, each loaded dice would have a 
+	greater probablity of tossing into a specific side. For example, dice one is
+	more likely to get value of 1 after tossing, dice two is more likely to get 
+	a value of 2 after tossing, etc. The observable states here is a sequence of
+	dice tossing, and what our code would do is based on the given sequence, 
+	transmission probability, emission probability and initial selection, 
+	finding out which loaded dice is being used. The output would generate a 
+	sequence of number representing which dice is being used by the gambler. The
+	forward algorithm is applied on relation between weather and bike ride.
+	Riding bike is a common choice of commute but the weather is a factor of
+	limitation. In our model, we have five types of weather condition: Clear,
+	Fog, Fog-Rain, Rain and Rain-Thunderstorm. The weather here is our hidden
+	state, and usage of bike is our observable state. Given a sequence of a
+	commuter's usage of bike, we can speculate the sequence of weather condition
+	outside and obtain the most likely weather on a given day from the sequence.
+	
+
+4. Technique used
+	
