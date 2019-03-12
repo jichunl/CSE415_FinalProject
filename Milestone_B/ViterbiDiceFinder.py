@@ -35,7 +35,8 @@ def viterbi_dp(num_sequence, trans_matrix, number_matrix, initial_selection):
             #   given the transmission matrix, the probability of getting current number given current dice,
             #   and the probability of getting last dice.
             for last_state in range(states):
-                delta = trans_matrix[last_state][current_state] * number_matrix[current_state][current_number - 1] * OPT[last_state][i - 1][0]
+                delta = trans_matrix[last_state][current_state] \
+                        * number_matrix[current_state][current_number - 1] * OPT[last_state][i - 1][0]
                 #   Break tie by always record the first
                 if delta > max_prob:
                     max_prob = delta
@@ -80,7 +81,7 @@ def demo(n=-1, seed=234567, number_sequence=None, dice_sequence=None,
 
     else:
         #   Use custom settings:
-        if number_sequence is None and dice_sequence is None:
+        if number_sequence is None:
             #   Generate sample sequence
             sampleInput = g.generate(n, seed, initial_selection, transition_matrix, emission_matrix)
             OPT = viterbi_dp(sampleInput[1], transition_matrix, emission_matrix, initial_selection)
